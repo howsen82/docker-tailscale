@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  tailscale:
+    container_name: tailscale
+    hostname: tailscale
+    image: tailscale/tailscale:latest
+    # environment:
+    #   - TS_AUTHKEY=tskey-auth-ab1CDE2CNTRL-0123456789abcdef
+    volumes:
+      - /var/lib:/var/lib
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - sys_module
+    command: tailscaled
+    network_mode: host
+    restart: unless-stopped
